@@ -1,0 +1,72 @@
+﻿@page "/PersonBootStrap"
+
+<h3>Person Boot Strap Component</h3>
+<div class="container mt-4">
+    <h3 class="text-primary mb-3">Person Component</h3>
+
+    <!-- عرض الشخص الأساسي -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <h5 class="card-title">Main Person</h5>
+            <p class="card-text">
+                <strong>Name:</strong> @Person2.Name <br />
+                <strong>ID:</strong> @Person2.Id
+            </p>
+        </div>
+    </div>
+
+    <!-- عرض باقي الأشخاص -->
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h5 class="card-title">All Persons (15)</h5>
+
+            <table class="table table-striped table-hover table-bordered align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var p in Persons)
+                    {
+                        <tr>
+                            <td>@p.Id</td>
+                            <td>@p.Name</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@code {
+    public class Person
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
+    public Person Person2 { get; set; }
+    public List<Person> Persons { get; set; } = new List<Person>();
+
+    public PersonBootStrapComponent()
+    {
+        // الشخص الأساسي
+        Person2 = new Person()
+        {
+            Name = "Ahmed",
+            Id = 1
+        };
+
+        // إضافة 15 شخص للقائمة
+        for (int i = 1; i <= 15; i++)
+        {
+            Persons.Add(new Person()
+            {
+                Id = i,
+                Name = $"Person {i}"
+            });
+        }
+    }    
+}

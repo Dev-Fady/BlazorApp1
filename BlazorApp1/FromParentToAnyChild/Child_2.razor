@@ -1,0 +1,11 @@
+﻿@page "/Child_2"
+
+<div style="border:2px blue solid">
+    <h3>Child_2</h3>
+    <h1>@Msg</h1>
+</div>
+@code {
+    // [Parameter]
+    [CascadingParameter(Name ="Child2Mes")]
+    public string Msg { get; set; }
+}

@@ -1,0 +1,29 @@
+﻿@page "/MyFirst"
+
+<h3>First</h3>
+
+<input type="button" @onclick="Fun1" value="ClickMe" class="btn btn-success"/>
+
+<h2>One Way Binding From C# to HTML</h2>
+<h3>@x</h3>
+
+
+<input  value="@x" class="from-control" />
+
+<h2>One Way Binding From C# to HTML and HTml to C#</h2>
+<input @bind="x" class="from-control" />
+
+<h2>twe Way Binding with update</h2>
+<input @bind="x"  @bind:event="oninput" class="from-control" />
+
+@code {
+    public int x  { get; set; }
+    public First()
+    {
+        x = 10;
+    }
+    private void Fun1(MouseEventArgs args)
+    {
+        x = x * 10;
+    }
+}

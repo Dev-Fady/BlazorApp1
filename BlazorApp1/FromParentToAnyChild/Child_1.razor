@@ -1,0 +1,28 @@
+﻿@page "/Child_1"
+
+<div style="border:2px red solid">
+    <h3>Child_1</h3>
+    <Child_2></Child_2>
+
+</div>
+
+<input @bind="Data" />
+
+<button class="btn-primary" @onclick="Change">Change data</button>
+
+@Data
+
+@code {
+    [Parameter]
+    public EventCallback<string> DataChange { get; set; }
+
+    public string Data { get; set; }
+
+    private void Change(MouseEventArgs args)
+    {
+        // Data = "New Data";
+        // fire event
+        DataChange.InvokeAsync(Data);
+
+    }
+}

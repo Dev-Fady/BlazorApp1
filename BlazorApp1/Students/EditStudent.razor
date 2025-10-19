@@ -1,0 +1,81 @@
+﻿@page "/Student/Edit/{Id:int}"
+@inject StudentService stuService
+@inject DepatService depatService
+@using Microsoft.AspNetCore.Components.Forms
+@* @inject NavigationManager NavManager *@
+
+<h3 class="mb-4 text-primary">Edit Student</h3>
+
+@if (student == null)
+{
+    <p>Wait ... or Id Not Valid </p>
+}
+else
+{
+    if (DataSave==false)
+    {
+        <EditForm Model="student" OnValidSubmit="Save" OnInvalidSubmit="InValid">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <InputText class="form-control" @bind-Value="student.Name" />
+                <ValidationMessage For="() => student.Name" class="text-danger"></ValidationMessage>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Address</label>
+                <InputText class="form-control" @bind-Value="student.Address" />
+                <ValidationMessage For=@(() => student.Address) class="text-danger"></ValidationMessage>
+
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Department</label>
+                <InputSelect class="form-select" @bind-Value="student.DepartId">
+                    <option value="">-- Select Department --</option>
+                    @foreach (var dept in depats)
+                    {
+                        <option value="@dept.Id">@dept.Name</option>
+                    }
+                </InputSelect>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </EditForm>
+
+        <hr />
+
+        <div class="card mt-3">
+            <div class="card-body">
+                <h5>Preview:</h5>
+                <p><strong>ID:</strong> @student.Id</p>
+                <p><strong>Name:</strong> @student.Name</p>
+                <p><strong>Address:</strong> @student.Address</p>
+                <p><strong>DepartId:</strong> @student.DepartId</p>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-success mt-4" role="alert">
+            🎉 <strong>Congratulations!</strong> Data has been successfully saved.
+        </div>
+
+        <div class="card shadow-sm border-success mt-3">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">Student Information</h5>
+                <h3 class="mb-0">
+                    <a href="/student/Details/@Id">Back To Lit</a>
+                </h3>
+            </div>
+            <div class="card-body">
+                <p><strong>ID:</strong> @student.Id</p>
+                <p><strong>Name:</strong> @student.Name</p>
+                <p><strong>Address:</strong> @student.Address</p>
+                <p><strong>Department ID:</strong> @student.DepartId</p>
+            </div>
+        </div>
+    }
+}

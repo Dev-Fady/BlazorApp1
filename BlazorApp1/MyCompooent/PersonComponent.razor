@@ -1,0 +1,37 @@
+﻿@page "/Person"
+<h3>PersonComponent</h3>
+
+@Person.Name
+
+<p><strong>Single Person:</strong> @Person.Name (@Person.Id)</p>
+
+<hr />
+
+<h4>All Persons:</h4>
+<ul>
+    @foreach (var p in Persons)
+    {
+        <li>@p.Id - @p.Name</li>
+    }
+</ul>
+@code {
+    [Parameter]
+    public Person Person { get; set; }
+    public List<Person> Persons { get; set; } = new List<Person>();
+    public PersonComponent()
+    {
+        Person = new Person()
+            {
+                Name = "Ahmed",
+                Id = 1
+            };
+        for (int i = 1; i <= 15; i++)
+        {
+            Persons.Add(new Person()
+            {
+                Id = i,
+                Name = $"Person {i}"
+            });
+        }
+    }
+}

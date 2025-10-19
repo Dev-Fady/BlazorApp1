@@ -1,0 +1,18 @@
+﻿@page "/Parent"
+<h3>Parent</h3>
+<CascadingValue Name="Child2Mes" Value="@Msg">
+    <Child_1 DataChange="GetDataHandl"></Child_1>
+</CascadingValue>
+
+<h1>@MesChaild</h1>
+@code {
+    public string Msg { get; set; } = "Hello From Parant El Keber";
+
+
+    public string MesChaild { get; set; }
+
+    private void GetDataHandl(string args)
+    {
+        MesChaild = args;
+    }
+}

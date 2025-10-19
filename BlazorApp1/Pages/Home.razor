@@ -1,0 +1,13 @@
+﻿@page "/"
+
+<PageTitle>Home</PageTitle>
+
+<h1>Hello, world!</h1>
+<First></First>
+<PersonComponent Person="@MyPerson" />
+
+Welcome to your new app.
+
+@code {
+    private Person MyPerson = new Person { Name = "Fady", Id = 5 };
+}

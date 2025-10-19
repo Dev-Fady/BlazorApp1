@@ -1,0 +1,35 @@
+﻿
+@page "/student/Details/{Id:int}"
+
+<h3>Student Details</h3>
+
+@if(FilteredStudent is not null)
+{
+    <div>
+        <p><strong>ID:</strong> @FilteredStudent.Id</p>
+        <p><strong>Name:</strong> @FilteredStudent.Name</p>
+        <p><strong>Address:</strong> @FilteredStudent.Address</p>
+        <p><strong>Department:</strong> @FilteredStudent.DepartId</p>
+    </div>
+}
+else
+{
+
+    <p>Student not found.</p>
+}
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    private List<Student> Students = new();
+    private Student? FilteredStudent;
+
+    private SampleData sampleData = new SampleData();
+
+    protected override void OnInitialized()
+    {
+        Students = sampleData.GetStudents();
+        FilteredStudent = Students.FirstOrDefault(s => s.Id == Id);
+    }
+}

@@ -1,0 +1,60 @@
+﻿@page "/test/StudentDtails/{Id:int}"
+@inject StudentService SudServer
+
+<h3 class="text-center text-primary mt-3">🎓 Student Details</h3>
+
+<div class="container mt-4">
+    <div class="card shadow-lg border-0 rounded-3">
+        <div class="card-body">
+            <h4 class="card-title text-success">Student by ID</h4>
+
+            @if (Student != null)
+            {
+                <div class="alert alert-info">
+                    <strong>@Student.Name</strong> — @Student.Address
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-warning">Loading student details...</div>
+            }
+
+            <hr />
+
+            <h5 class="text-secondary mt-3">All Students</h5>
+
+            <div class="row">
+                @foreach (var stus in Students)
+                {
+                    <div class="col-md-4 mb-3">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body">
+                                <p><strong>ID:</strong> @stus.Id</p>
+                                <p><strong>Name:</strong> @stus.Name</p>
+                                <p><strong>Address:</strong> @stus.Address</p>
+                                <p><strong>Department:</strong> @stus.DepartId</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    public Student Student { get; set; }
+    public List<Student> Students { get; set; } = new();
+
+    protected override void OnParametersSet()
+    {
+        Console.WriteLine("OnParametersSet " + Id);
+
+        // StudentService service = new StudentService();
+        Students = SudServer.getAll();
+        Student = SudServer.getById(Id);
+    }
+}
